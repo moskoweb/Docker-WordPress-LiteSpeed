@@ -44,6 +44,28 @@ if [ ! -e wp-config.php ]; then
     echo "WordPress | Plugin Remove"
     wp plugin delete --allow-root akismet hello
 
+    echo "WordPress | Theme Update"
+    wp theme update --allow-root --all
+
+    echo "WordPress | Comment Delete"
+    wp comment delete 1 --force --allow-root
+
+    echo "WordPress | Post and Pages Delete"
+    wp post delete 1 --force --allow-root
+    wp post delete 2 --force --allow-root
+    wp post delete 3 --force --allow-root
+
+    echo "WordPress | FTP Set"
+    wp config set FS_METHOD direct --allow-root
+
+    echo "WordPress | Cron Set"
+    wp config set DISABLE_WP_CRON true --allow-root
+    crontab -l > mtccron
+    echo "# WordPress Cron" >> mtccron
+    echo "*/15 * * * * php -q /var/www/vhosts/localhost/html/wp-cron.php" >> mtccron
+    crontab mtccron
+    rm mtccron
+
 fi
 
 chown -R lsadm:lsadm .*
@@ -53,3 +75,5 @@ chmod -R g+rw .*
 chown -R lsadm:lsadm *
 
 chmod -R g+rw *
+
+/usr/local/lsws/bin/lswsctrl restart
