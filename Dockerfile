@@ -1,5 +1,6 @@
 FROM litespeedtech/openlitespeed:latest
 COPY wp-install.sh /usr/local/bin/
+COPY .htaccess /var/www/vhosts/localhost/html
 
 LABEL version="0.0.1"
 LABEL description="WordPress com Litespeed"
@@ -15,6 +16,7 @@ ENV WP_LOCALE="pt_BR"
 ENV WORDPRESS_AD_USER="AdminUser"
 ENV WORDPRESS_AD_PASS="AdminPass"
 ENV WORDPRESS_AD_MAIL="admin@email.com"
+ENV WORDPRESS_PLUGINS=""
 
 RUN apt-get update -y
 RUN apt-get upgrade -y
@@ -29,9 +31,6 @@ RUN rm -rf /var/lib/apt/lists/*
 ENV PATH="${PATH}:/usr/local/lsws/lsphp74/bin/"
 
 WORKDIR /var/www/vhosts/localhost/html
-
-# RUN chmod +x /usr/local/bin/wp-install.sh
-# RUN /usr/local/bin/wp-install.sh
 
 CMD ["sh", "/usr/local/bin/wp-install.sh"]
 
