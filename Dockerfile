@@ -17,7 +17,7 @@ ENV WORDPRESS_AD_PASS="Admin Pass"
 ENV WORDPRESS_AD_MAIL="admin@domain.com"
 
 RUN apt-get update && \
-	apt-get install -y wget cron && \
+	apt-get install -y wget cron nano zip unzip curl git && \
 	wget -O - http://rpms.litespeedtech.com/debian/enable_lst_debain_repo.sh | bash && \
 	apt-get install -y lsphp74-ldap && \
 	apt-get clean && \
