@@ -1,5 +1,5 @@
 FROM litespeedtech/openlitespeed:latest
-COPY wp-install.sh /
+COPY wp-install.sh /usr/local/bin/
 
 LABEL version="0.0.1"
 LABEL description="WordPress com Litespeed"
@@ -30,4 +30,4 @@ ENV PATH="${PATH}:/usr/local/lsws/lsphp74/bin/"
 
 WORKDIR /var/www/vhosts/localhost/html
 
-RUN ./wp-install.sh
+RUN /usr/local/bin/wp-install.sh
