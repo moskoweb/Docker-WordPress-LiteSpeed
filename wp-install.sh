@@ -6,6 +6,7 @@ mysql --no-defaults -h $WORDPRESS_DB_HOST --port $WORDPRESS_DB_PORT -u $WORDPRES
 cd /var/www/vhosts/localhost/html
 
 if [ ! -e wp-config.php ]; then
+
     echo "WordPress | Core Download"
     wp core download --locale=$WP_LOCALE --allow-root
 
@@ -28,15 +29,19 @@ if [ ! -e wp-config.php ]; then
         --admin_password=$WORDPRESS_AD_PASS \
         --admin_email=$WORDPRESS_AD_MAIL \
         --skip-email --allow-root
+
     fi
 
     echo "WordPress | Rewrite Set"
     wp rewrite structure '/%postname%/' --allow-root
 
+    echo "WordPress | Plugin Install"
+    wp plugin install --allow-root litespeed-cache
+
+    echo "WordPress | Plugin Activate"
+    wp plugin activate --allow-root litespeed-cache
+
+    echo "WordPress | Plugin Remove"
+    wp plugin delete --allow-root akismet hello-dolly
+
 fi
-
-echo "WordPress | Plugin Install"
-wp plugin install --allow-root litespeed-cache
-
-echo "WordPress | Plugin Activate"
-wp plugin activate --allow-root litespeed-cache
