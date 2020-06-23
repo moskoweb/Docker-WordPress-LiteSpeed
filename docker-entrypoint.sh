@@ -3,6 +3,8 @@ set -euo pipefail
 
 /usr/local/lsws/bin/openlitespeed -d
 
+mysql -u$WORDPRESS_DB_USER -p$WORDPRESS_DB_PASS -e "create database '$WORDPRESS_DB_NAME'"
+
 cd /var/www/vhosts/localhost/html
 
 wp core download --locale=pt_BR --allow-root
