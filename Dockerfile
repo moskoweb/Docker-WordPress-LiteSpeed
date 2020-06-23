@@ -23,8 +23,7 @@ RUN apt-get update && \
 	apt-get clean && \
 	apt-get autoclean && \
 	apt-get autoremove --purge -y wget && \
-	rm -rf /var/lib/apt/lists/* && \
-	chmod a+x /usr/local/bin/docker-*.sh
+	rm -rf /var/lib/apt/lists/*
 
 ENV PATH="${PATH}:/usr/local/lsws/lsphp74/bin/"
 
