@@ -43,6 +43,11 @@ if [ ! -e wp-config.php ]; then
         wp plugin install --allow-root $WORDPRESS_PLUGINS
     fi
 
+    if [ -n "$WORDPRESS_ACTIVEP" ]; then
+        echo "WordPress | Plugins Activate"
+        wp plugin activate --allow-root $WORDPRESS_ACTIVEP
+    fi
+
     echo "WordPress | Plugin Activate"
     wp plugin activate --allow-root litespeed-cache
 

@@ -17,6 +17,7 @@ ENV WORDPRESS_AD_USER="AdminUser"
 ENV WORDPRESS_AD_PASS="AdminPass"
 ENV WORDPRESS_AD_MAIL="admin@email.com"
 ENV WORDPRESS_PLUGINS=""
+ENV WORDPRESS_ACTIVEP=""
 
 RUN apt-get update -y
 RUN apt-get upgrade -y
