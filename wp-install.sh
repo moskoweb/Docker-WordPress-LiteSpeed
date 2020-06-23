@@ -76,4 +76,6 @@ chown -R lsadm:lsadm *
 
 chmod -R g+rw *
 
+sleep 5
+
 /usr/local/lsws/bin/lswsctrl restart
