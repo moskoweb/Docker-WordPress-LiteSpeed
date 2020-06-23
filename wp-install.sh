@@ -42,6 +42,6 @@ if [ ! -e wp-config.php ]; then
     wp plugin activate --allow-root litespeed-cache
 
     echo "WordPress | Plugin Remove"
-    wp plugin delete --allow-root akismet hello-dolly
+    wp plugin delete --allow-root akismet hello
 
 fi
