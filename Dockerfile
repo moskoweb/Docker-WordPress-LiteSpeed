@@ -16,14 +16,15 @@ ENV WORDPRESS_AD_USER="AdminUser"
 ENV WORDPRESS_AD_PASS="AdminPass"
 ENV WORDPRESS_AD_MAIL="admin@email.com"
 
-RUN apt-get update && \
-	apt-get install -y wget cron nano zip unzip curl git && \
-	wget -O - http://rpms.litespeedtech.com/debian/enable_lst_debain_repo.sh | bash && \
-	apt-get install -y lsphp74-ldap && \
-	apt-get clean && \
-	apt-get autoclean && \
-	apt-get autoremove --purge -y wget && \
-	rm -rf /var/lib/apt/lists/*
+RUN apt-get update -y
+RUN apt-get upgrade -y
+RUN apt-get install -y wget cron nano zip unzip curl git
+RUN wget -O - http://rpms.litespeedtech.com/debian/enable_lst_debain_repo.sh | bash
+RUN apt-get install -y lsphp74-ldap
+RUN apt-get clean
+RUN apt-get autoclean
+RUN apt-get autoremove --purge -y wget
+RUN rm -rf /var/lib/apt/lists/*
 
 ENV PATH="${PATH}:/usr/local/lsws/lsphp74/bin/"
 
