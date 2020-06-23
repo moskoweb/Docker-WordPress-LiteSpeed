@@ -30,5 +30,7 @@ ENV PATH="${PATH}:/usr/local/lsws/lsphp74/bin/"
 
 WORKDIR /var/www/vhosts/localhost/html
 
-RUN chmod +x /usr/local/bin/wp-install.sh
-RUN /usr/local/bin/wp-install.sh
+# RUN chmod +x /usr/local/bin/wp-install.sh
+# RUN /usr/local/bin/wp-install.sh
+
+CMD ["sh", "/usr/local/bin/wp-install.sh"]
