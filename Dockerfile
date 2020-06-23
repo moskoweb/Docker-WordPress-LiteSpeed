@@ -1,5 +1,5 @@
 FROM litespeedtech/openlitespeed:latest
-COPY docker-entrypoint.sh /usr/local/bin/
+COPY wp-install.sh /
 
 LABEL version="0.0.1"
 LABEL description="WordPress com Litespeed"
@@ -12,9 +12,9 @@ ENV WORDPRESS_DB_PASS=""
 ENV WORDPRESS_DB_HOST="localhost"
 ENV WORDPRESS_DB_PORT="3306"
 ENV WP_LOCALE="pt_BR"
-ENV WORDPRESS_AD_USER="Admin User"
-ENV WORDPRESS_AD_PASS="Admin Pass"
-ENV WORDPRESS_AD_MAIL="admin@domain.com"
+ENV WORDPRESS_AD_USER="AdminUser"
+ENV WORDPRESS_AD_PASS="AdminPass"
+ENV WORDPRESS_AD_MAIL="admin@email.com"
 
 RUN apt-get update && \
 	apt-get install -y wget cron nano zip unzip curl git && \
@@ -30,4 +30,4 @@ ENV PATH="${PATH}:/usr/local/lsws/lsphp74/bin/"
 
 WORKDIR /var/www/vhosts/localhost/html
 
-ENTRYPOINT ["docker-entrypoint.sh"]
+RUN ./wp-install.sh
