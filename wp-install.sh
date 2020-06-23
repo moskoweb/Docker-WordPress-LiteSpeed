@@ -45,3 +45,11 @@ if [ ! -e wp-config.php ]; then
     wp plugin delete --allow-root akismet hello
 
 fi
+
+chown -R lsadm:lsadm .*
+
+chmod -R g+rw .*
+
+chown -R lsadm:lsadm *
+
+chmod -R g+rw *
