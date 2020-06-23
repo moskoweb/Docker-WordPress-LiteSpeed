@@ -38,7 +38,7 @@ if [ ! -e wp-config.php ]; then
     echo "WordPress | Plugin Install"
     wp plugin install --allow-root litespeed-cache
 
-    if [[ $WORDPRESS_PLUGINS ]]
+    if [ "$WORDPRESS_PLUGINS" -ne "" ]
     then
         echo "WordPress | Plugins Install"
         wp plugin install --allow-root $WORDPRESS_PLUGINS
@@ -83,3 +83,5 @@ chown -R lsadm:lsadm *
 chmod -R g+rw *
 
 /usr/local/lsws/bin/lswsctrl restart
+
+echo "WordPress | Install Completed"
