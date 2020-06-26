@@ -72,19 +72,19 @@ if [ ! -e wp-config.php ]; then
     wp config set DISABLE_WP_CRON true --allow-root
     crontab -l > mtccron
     echo "# WordPress Cron" >> mtccron
-    echo "*/15 * * * * php -q /var/www/vhosts/localhost/html/wp-cron.php" >> mtccron
+    echo "*/15 * * * * lsadm php -q /var/www/vhosts/localhost/html/wp-cron.php" >> mtccron
     crontab mtccron
     rm mtccron
 
 fi
 
-chown -R lsadm:lsadm .*
+chown -R lsadm:lsadm /var/www/vhosts/localhost/html/.*
 
-chmod -R g+rw .*
+chmod -R g+rw /var/www/vhosts/localhost/html/.*
 
-chown -R lsadm:lsadm *
+chown -R lsadm:lsadm /var/www/vhosts/localhost/html/*
 
-chmod -R g+rw *
+chmod -R g+rw /var/www/vhosts/localhost/html/*
 
 echo "PHP | Ini Set Values"
 sed -i "s/upload_max_filesize = 2M/upload_max_filesize = $PHP_INI_MAXFILE_SIZE/g" /usr/local/lsws/lsphp74/etc/php/7.4/litespeed/php.ini
