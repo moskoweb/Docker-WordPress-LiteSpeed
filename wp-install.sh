@@ -12,27 +12,31 @@ if [ ! -e wp-config.php ]; then
 
     echo "WordPress | Core Configuration"
     wp core config --allow-root \
-    --dbname=$WORDPRESS_DB_NAME \
-    --dbuser=$WORDPRESS_DB_USER \
-    --dbpass=$WORDPRESS_DB_PASS \
-    --dbhost="$WORDPRESS_DB_HOST:$WORDPRESS_DB_PORT"
+        --dbname=$WORDPRESS_DB_NAME \
+        --dbuser=$WORDPRESS_DB_USER \
+        --dbpass=$WORDPRESS_DB_PASS \
+        --dbhost="$WORDPRESS_DB_HOST:$WORDPRESS_DB_PORT"
 
     echo "WordPress | Config Salts"
     wp config shuffle-salts --allow-root
 
     if ! $(wp core is-installed --allow-root); then
-        if [ ! -n "$WORDPRESS_DOMAIN" ]; then
-            WORDPRESS_DOMAIN=$VIRTUAL_HOST
-        fi
-        
         echo "WordPress | Core Install"
-        wp core install --url=$WORDPRESS_DOMAIN \
-        --title="WordPress com Litespeed" \
-        --admin_user=$WORDPRESS_AD_USER \
-        --admin_password=$WORDPRESS_AD_PASS \
-        --admin_email=$WORDPRESS_AD_MAIL \
-        --skip-email --allow-root
-
+        if [ -n "$WORDPRESS_DOMAIN" ]; then
+            wp core install --url=$WORDPRESS_DOMAIN \
+                --title="WordPress com Litespeed" \
+                --admin_user=$WORDPRESS_AD_USER \
+                --admin_password=$WORDPRESS_AD_PASS \
+                --admin_email=$WORDPRESS_AD_MAIL \
+                --skip-email --allow-root
+        else
+            wp core install --url=$VIRTUAL_HOST \
+                --title="WordPress com Litespeed" \
+                --admin_user=$WORDPRESS_AD_USER \
+                --admin_password=$WORDPRESS_AD_PASS \
+                --admin_email=$WORDPRESS_AD_MAIL \
+                --skip-email --allow-root
+        fi
     fi
 
     echo "WordPress | Rewrite Set"
