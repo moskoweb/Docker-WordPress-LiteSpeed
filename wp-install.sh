@@ -21,9 +21,12 @@ if [ ! -e wp-config.php ]; then
     wp config shuffle-salts --allow-root
 
     if ! $(wp core is-installed --allow-root); then
-
+        if [ ! -n "$WORDPRESS_DOMAIN" ]; then
+            WORDPRESS_DOMAIN=$VIRTUAL_HOST
+        fi
+        
         echo "WordPress | Core Install"
-        wp core install --url=$VIRTUAL_HOST \
+        wp core install --url=$WORDPRESS_DOMAIN \
         --title="WordPress com Litespeed" \
         --admin_user=$WORDPRESS_AD_USER \
         --admin_password=$WORDPRESS_AD_PASS \
