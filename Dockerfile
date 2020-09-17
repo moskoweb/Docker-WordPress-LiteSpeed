@@ -2,7 +2,7 @@ FROM litespeedtech/openlitespeed:latest
 COPY wp-install.sh /usr/local/bin/
 COPY .htaccess /var/www/vhosts/localhost/html
 
-LABEL version="0.0.1"
+LABEL version="0.0.2"
 LABEL description="WordPress com Litespeed"
 LABEL maintainer="Alan Mosko<falecom@alanmosko.com.br>"
 

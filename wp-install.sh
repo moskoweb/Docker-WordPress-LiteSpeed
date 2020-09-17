@@ -20,18 +20,18 @@ if [ ! -e wp-config.php ]; then
     echo "WordPress | Config Salts"
     wp config shuffle-salts --allow-root
 
-    if ! $(wp core is-installed --allow-root); then
+    if [ ! $(wp core is-installed --allow-root)]; then
         echo "WordPress | Core Install"
-        if [ -n "$WORDPRESS_DOMAIN" ]; then
+        if [ -n $WORDPRESS_DOMAIN ]; then
             wp core install --url=$WORDPRESS_DOMAIN \
-                --title="WordPress com Litespeed" \
+                --title="WordPress with Litespeed" \
                 --admin_user=$WORDPRESS_AD_USER \
                 --admin_password=$WORDPRESS_AD_PASS \
                 --admin_email=$WORDPRESS_AD_MAIL \
                 --skip-email --allow-root
         else
             wp core install --url=$VIRTUAL_HOST \
-                --title="WordPress com Litespeed" \
+                --title="WordPress with Litespeed" \
                 --admin_user=$WORDPRESS_AD_USER \
                 --admin_password=$WORDPRESS_AD_PASS \
                 --admin_email=$WORDPRESS_AD_MAIL \
@@ -45,12 +45,12 @@ if [ ! -e wp-config.php ]; then
     echo "WordPress | Plugin Install"
     wp plugin install --allow-root litespeed-cache
 
-    if [ -n "$WORDPRESS_PLUGINS" ]; then
+    if [ -n $WORDPRESS_PLUGINS ]; then
         echo "WordPress | Plugins Install"
         wp plugin install --allow-root $WORDPRESS_PLUGINS
     fi
 
-    if [ -n "$WORDPRESS_ACTIVEP" ]; then
+    if [ -n $WORDPRESS_ACTIVEP ]; then
         echo "WordPress | Plugins Activate"
         wp plugin activate --allow-root $WORDPRESS_ACTIVEP
     fi
@@ -77,11 +77,11 @@ if [ ! -e wp-config.php ]; then
 
     echo "WordPress | Cron Set"
     wp config set DISABLE_WP_CRON true --allow-root
-    crontab -l > mtccron
-    echo "# WordPress Cron" >> mtccron
-    echo "*/15 * * * * lsadm php -q /var/www/vhosts/localhost/html/wp-cron.php" >> mtccron
-    crontab mtccron
-    rm mtccron
+    crontab -l > crontemp
+    echo "# WordPress Cron" >> crontemp
+    echo "*/15 * * * * lsadm php -q /var/www/vhosts/localhost/html/wp-cron.php" >> crontemp
+    crontab crontemp
+    rm crontemp
 
 fi
 
